@@ -14,19 +14,19 @@ bookmarksRouter
     const { title, url, desc = '', rating = 1 } = req.body
     if (typeof title !== 'string' || title.trim() === '') {
       logger.error(`Title is malformed`);
-      res.status(400).json({ message: 'title must be a string & cannot be blank' })
+      return res.status(400).json({ message: 'title must be a string & cannot be blank' })
     }
     if (typeof url !== 'string' || url.trim() === '' || !/^https?:\/\//.test(url)) {
       logger.error(`Url is malformed`);
-      res.status(400).json({ message: 'url cannot be blank & must start with http(s)://' })
+      return res.status(400).json({ message: 'url cannot be blank & must start with http(s)://' })
     }
     if (typeof desc !== 'string') {
       logger.error(`Description is not a string`);
-      res.status(400).json({ message: 'description must be a string' })
+      return res.status(400).json({ message: 'description must be a string' })
     }
     if (typeof rating !== 'number' || rating < 1 || rating > 5) {
       logger.error(`Rating is not a number`);
-      res.status(400).json({ message: 'rating must be a number between 1 and 5' })
+      return res.status(400).json({ message: 'rating must be a number between 1 and 5' })
     }
     const id = uuid();
     bookmarksStore.push({
